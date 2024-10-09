@@ -60,7 +60,3 @@ struct ForgotPassword: View {
         .interactiveDismissDisabled()
     }
 }
-
-#Preview {
-    ContentView()
-}

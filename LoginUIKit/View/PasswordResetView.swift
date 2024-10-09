@@ -52,7 +52,3 @@ struct PasswordResetView: View {
         .interactiveDismissDisabled()
     }
 }
-
-#Preview {
-    ContentView()
-}

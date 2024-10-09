@@ -14,14 +14,15 @@ struct OTPView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             // Back button
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image(systemName: "arrow.left")
-                    .font(.title2)
-                    .foregroundStyle(.gray)
-            })
-            .padding(.top, 15)
+//            Button(action: {
+//                dismiss()
+//            }, label: {
+//                Image(systemName: "arrow.left")
+//                    .font(.title2)
+//                    .foregroundStyle(.gray)
+//            })
+//            .padding(.top, 15)
+            Text("Signup successfull, please check your Email").foregroundColor(.green)
             Text("Enter OTP")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
@@ -53,8 +54,4 @@ struct OTPView: View {
         // since this is going to be a sheet.
         .interactiveDismissDisabled()
     }
-}
-
-#Preview {
-    ContentView()
 }

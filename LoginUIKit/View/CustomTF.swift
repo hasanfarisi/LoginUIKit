@@ -13,6 +13,7 @@ struct CustomTF: View {
     var hint:String
     // Hides textfield
     var isPassword: Bool = false
+    var isEmail: Bool = false
     @Binding var value: String
     /// view properties
     @State private var showPassword: Bool = false
@@ -32,9 +33,13 @@ struct CustomTF: View {
                             SecureField(hint, text: $value)
                         }
                     }
+                }else if isEmail{
+                    TextField(hint, text: $value)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
                 }else{
                     TextField(hint, text: $value)
-                        
+                        .autocapitalization(.none)
                 }
                 Divider()
             })

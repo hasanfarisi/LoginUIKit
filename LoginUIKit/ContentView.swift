@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var showSignup: Bool = false
     // keyboard state
     @State private var isKeyboardShowing: Bool = false
+    //@State var userAuth:AuthUser
+    @EnvironmentObject var userAuth: AuthUser
     var body: some View {
         NavigationStack {
             Login(showSignup: $showSignup)

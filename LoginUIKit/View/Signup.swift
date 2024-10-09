@@ -12,8 +12,8 @@ struct Signup: View {
     @State private var emailID:String = ""
     @State private var fullName:String = ""
     @State private var password:String = ""
-    @State private var askOTP:Bool = false
     @State private var otpText:String = ""
+    @EnvironmentObject var userAuth: AuthUser
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
@@ -39,18 +39,22 @@ struct Signup: View {
             
             VStack(spacing: 25){
                 // Custom text fields
-                CustomTF(sfIcon: "at", hint: "Email ID", value: $emailID)
+                CustomTF(sfIcon: "at", hint: "Email ID",isEmail: true, value: $emailID)
                 
-                CustomTF(sfIcon: "person", hint: "Full name", value: $fullName)
+                CustomTF(sfIcon: "person", hint: "Username", value: $fullName)
                     .padding(.top, 5)
                 
                 CustomTF(sfIcon: "lock", hint: "Password",isPassword: true, value: $password)
                     .padding(.top, 5)
                 
+                if !userAuth.isCorrect {
+                    Text(userAuth.isError).foregroundColor(.red)
+                }
+                
                 // Singup button
                 GradientButton(title: "Continue", icon: "arrow.right"){
                     /// your code
-                    askOTP.toggle()
+                    self.userAuth.checkRegister(username: fullName, password: password, email: emailID)
                 }
                 .hSpacing(.trailing)
                 //Disabling until the data is entered
@@ -76,7 +80,7 @@ struct Signup: View {
         .toolbar(.hidden, for: .navigationBar)
         
         // OTP Prompt
-        .sheet(isPresented: $askOTP, content: {
+        .sheet(isPresented: $userAuth.needVerified, content: {
             if #available(iOS 16.4, *){
                 OTPView(otpText: $otpText)
                     .presentationDetents([.height(350)])
@@ -87,8 +91,4 @@ struct Signup: View {
             }
         })
     }
-}
-
-#Preview {
-    ContentView()
 }

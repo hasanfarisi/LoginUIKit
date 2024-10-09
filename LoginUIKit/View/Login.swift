@@ -105,7 +105,3 @@ struct Login: View {
         })
     }
 }
-
-#Preview {
-    ContentView()
-}
