@@ -8,9 +8,12 @@
 import Foundation
 
 struct User:Codable,Identifiable{
-    let id: String = UUID().uuidString
-    var _id:String
-    var username:String
+    let id = UUID().uuidString
+    var sub:String
+    var nickname:String
+    var name:String
+    var picture:String
+    var updated_at:String
     var email:String
-    var email_verified:Bool = false    
+    var email_verified:String
 }

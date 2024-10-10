@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		04DFE8872CB7BF38007C7CA1 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 04DFE8862CB7BF38007C7CA1 /* SwiftyJSON */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		04AAA9A22CB51374002D3700 /* LoginUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DFE8872CB7BF38007C7CA1 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = LoginUIKit;
 			packageProductDependencies = (
+				04DFE8862CB7BF38007C7CA1 /* SwiftyJSON */,
 			);
 			productName = LoginUIKit;
 			productReference = 04AAA9A22CB51374002D3700 /* LoginUIKit.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 04AAA9992CB51374002D3700;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				04DFE8852CB7BF38007C7CA1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 04AAA9A32CB51374002D3700 /* Products */;
 			projectDirPath = "";
@@ -322,6 +331,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04DFE8852CB7BF38007C7CA1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04DFE8862CB7BF38007C7CA1 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DFE8852CB7BF38007C7CA1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 04AAA99A2CB51374002D3700 /* Project object */;
 }

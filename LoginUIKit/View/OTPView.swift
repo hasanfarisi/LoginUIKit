@@ -9,37 +9,47 @@ import SwiftUI
 
 struct OTPView: View {
     @Binding var otpText:String
+    @Binding var emailID:String
     // environment properties
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var userAuth: AuthUser
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             // Back button
-//            Button(action: {
-//                dismiss()
-//            }, label: {
-//                Image(systemName: "arrow.left")
-//                    .font(.title2)
-//                    .foregroundStyle(.gray)
-//            })
-//            .padding(.top, 15)
-            Text("Signup successfull, please check your Email").foregroundColor(.green)
+            Button(action: {
+                dismiss()
+            }, label: {
+                Image(systemName: "arrow.left")
+                    .font(.title2)
+                    .foregroundStyle(.gray)
+            })
+            .padding(.top, 15)            
             Text("Enter OTP")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .padding(.top, 5)
             
-            Text("An 6 digit code has been sent to your email ID")
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundStyle(.gray)
-                .padding(.top, -5)
+            if userAuth.needVerified {
+                Text("Email check success, an 6 digit code has been sent to your email ID").foregroundColor(.green)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.gray)
+                    .padding(.top, -5)
+            }
             
             VStack(spacing: 25){
                 // custom OTP textfield
                 OTPVerificationView(otpText: $otpText)
                 // Singup button
+                
+                if !userAuth.isCorrect {
+                    Text(userAuth.isError).foregroundColor(.red)
+                }
+                
                 GradientButton(title: "Send", icon: "arrow.right"){
                     // modified code
+                    self.userAuth.verifiedOTP(otp: otpText, emailID: emailID)
+                    dismiss()
                 }
                 .hSpacing(.trailing)
                 //Disabling until the data is entered

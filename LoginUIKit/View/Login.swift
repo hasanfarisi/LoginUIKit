@@ -15,6 +15,8 @@ struct Login: View {
     @State private var showResetView:Bool = false
     @State private var askOTP:Bool = false
     @State private var otpText:String = ""
+    @EnvironmentObject var userAuth: AuthUser
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             Spacer(minLength: 0)
@@ -40,13 +42,17 @@ struct Login: View {
                 }
                 .font(.callout)
                 .fontWeight(.heavy)
-                .tint(.orange)
+                .tint(.green)
                 .hSpacing(.trailing)
+                
+                if !userAuth.isCorrect {
+                    Text(userAuth.isError).foregroundColor(.red)
+                }                
                 
                 // login button
                 GradientButton(title: "Login", icon: "arrow.right"){
                     /// your code
-                    askOTP.toggle()
+                    self.userAuth.checkLogin(email: emailID, password: password)
                 }
                 .hSpacing(.trailing)
                 //Disabling until the data is entered
@@ -62,7 +68,7 @@ struct Login: View {
                     showSignup.toggle()
                 }
                 .fontWeight(.bold)
-                .tint(.orange)
+                .tint(.green)
             }
             .font(.callout)
             .hSpacing()
@@ -93,13 +99,13 @@ struct Login: View {
             }
         })
         // OTP Prompt
-        .sheet(isPresented: $askOTP, content: {
+        .sheet(isPresented: $userAuth.needVerified, content: {
             if #available(iOS 16.4, *){
-                OTPView(otpText: $otpText)
+                OTPView(otpText: $otpText, emailID: $emailID)
                     .presentationDetents([.height(350)])
                     .presentationCornerRadius(30)
             }else{
-                OTPView(otpText: $otpText)
+                OTPView(otpText: $otpText, emailID: $emailID)
                     .presentationDetents([.height(350)])
             }
         })

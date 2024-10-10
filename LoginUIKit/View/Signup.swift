@@ -50,7 +50,9 @@ struct Signup: View {
                 if !userAuth.isCorrect {
                     Text(userAuth.isError).foregroundColor(.red)
                 }
-                
+                if userAuth.needVerifiedEmail {
+                    Text("Signup successfull, please check your Email for verified account").foregroundColor(.green)
+                }
                 // Singup button
                 GradientButton(title: "Continue", icon: "arrow.right"){
                     /// your code
@@ -70,7 +72,7 @@ struct Signup: View {
                     showSignup = false
                 }
                 .fontWeight(.bold)
-                .tint(.orange)
+                .tint(.green)
             }
             .font(.callout)
             .hSpacing()
@@ -80,15 +82,15 @@ struct Signup: View {
         .toolbar(.hidden, for: .navigationBar)
         
         // OTP Prompt
-        .sheet(isPresented: $userAuth.needVerified, content: {
-            if #available(iOS 16.4, *){
-                OTPView(otpText: $otpText)
-                    .presentationDetents([.height(350)])
-                    .presentationCornerRadius(30)
-            }else{
-                OTPView(otpText: $otpText)
-                    .presentationDetents([.height(350)])
-            }
-        })
+//        .sheet(isPresented: $userAuth.needVerified, content: {
+//            if #available(iOS 16.4, *){
+//                OTPView(otpText: $otpText)
+//                    .presentationDetents([.height(350)])
+//                    .presentationCornerRadius(30)
+//            }else{
+//                OTPView(otpText: $otpText)
+//                    .presentationDetents([.height(350)])
+//            }
+//        })
     }
 }

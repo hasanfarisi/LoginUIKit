@@ -12,19 +12,22 @@ struct ContentView: View {
     @State private var showSignup: Bool = false
     // keyboard state
     @State private var isKeyboardShowing: Bool = false
-    //@State var userAuth:AuthUser
     @EnvironmentObject var userAuth: AuthUser
     var body: some View {
         NavigationStack {
-            Login(showSignup: $showSignup)
-                .navigationDestination(isPresented: $showSignup){
-                    Signup(showSignup: $showSignup)
-                }
-            // checkin if any keyboard is visible
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in if !showSignup{ isKeyboardShowing = false }
-                })
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in isKeyboardShowing = false
-                })
+            if userAuth.isLoggedIn{
+                Home()
+            }else{
+                Login(showSignup: $showSignup)
+                    .navigationDestination(isPresented: $showSignup){
+                        Signup(showSignup: $showSignup)
+                    }
+                // checkin if any keyboard is visible
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in if !showSignup{ isKeyboardShowing = false }
+                    })
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in isKeyboardShowing = false
+                    })
+            }
         }
         .overlay{
             // iOS 17 Bounce animation
@@ -45,7 +48,7 @@ struct ContentView: View {
     @ViewBuilder
     func CircleView() -> some View {
         Circle()
-            .fill(.linearGradient(colors: [.orange, .red], startPoint: .top, endPoint: .bottom))
+            .fill(.linearGradient(colors: [.green, .yellow], startPoint: .top, endPoint: .bottom))
             .frame(width: 200, height:  200)
         // Moving when the sign up pages load/dismisses
             .offset(x: showSignup ? 90 : -90, y: -90 - (isKeyboardShowing ? 200 : 0))
@@ -56,5 +59,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(AuthUser())
 }
